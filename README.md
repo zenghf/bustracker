@@ -1,6 +1,6 @@
 Bustracker will allow the driver to send the locations of the bus to the sever, and the passengers to view the locations of the buses using a web browser.  
 This app uses java spring cloud microservices achitecture and RESTful API. 
-#### Authon
+#### Author
 Haifeng Zeng (zenghaifeng@gmail.com)
 
 #### Usage
