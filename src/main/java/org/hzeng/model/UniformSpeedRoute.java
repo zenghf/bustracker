@@ -1,6 +1,5 @@
-package org.hzeng.service;
+package org.hzeng.model;
 
-import org.hzeng.model.Coordinate;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -13,7 +12,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class UniformSpeedRoute {
+public class UniformSpeedRoute implements Route {
+
+    private String id;
 
     private String routeFileName;
     private double speed; // mile per second for demonstration;
@@ -27,7 +28,7 @@ public class UniformSpeedRoute {
     double lengthOfRoute;
     double timeOfRoundJourney;
 
-    public UniformSpeedRoute(String routeFileName, double speed, double timeZero) {
+    public UniformSpeedRoute(String id, String routeFileName, double speed, double timeZero) {
 
         this.routeFileName = routeFileName;
         this.speed = speed;
@@ -123,5 +124,9 @@ public class UniformSpeedRoute {
         double time = System.currentTimeMillis() / 1000.0 - timeZero;
         time = time - Math.floor(time / timeOfRoundJourney) * timeOfRoundJourney;
         return distToCoordinate(time * speed);
+    }
+
+    public String getId(){
+        return id;
     }
 }
