@@ -14,4 +14,9 @@ public class FrontEndController {
 
         return "viewBus_fun";
     }
+
+    @GetMapping("/message")
+    public String message(){
+        return "testServerSendMessage";
+    }
 }

@@ -1,5 +1,7 @@
 package org.hzeng.model;
 
+import org.json.simple.JSONObject;
+
 /**
  * Created by hzeng on 5/26/17.
  */
@@ -10,6 +12,13 @@ public class Coordinate {
     public Coordinate(double lat, double lng) {
         this.lat = lat;
         this.lng = lng;
+    }
+
+    public JSONObject toJSONObject(){
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("lat", lat);
+        jsonObject.put("lng", lng);
+        return jsonObject;
     }
 
     public double getLat() {

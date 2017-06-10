@@ -1,0 +1,9 @@
+server:
+  port: 8081
+spring:
+  freemarker:
+    cache: false
+  rabbitmq:
+    host: localhost
+bustracker:
+  exchange-name: BUS_LOCATION
