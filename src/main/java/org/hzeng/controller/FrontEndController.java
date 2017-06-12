@@ -19,4 +19,9 @@ public class FrontEndController {
     public String message(){
         return "testServerSendMessage";
     }
+
+    @GetMapping("/testWS")
+    public String testWS(){
+        return "testWS";
+    }
 }

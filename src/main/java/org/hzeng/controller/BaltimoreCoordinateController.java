@@ -6,10 +6,8 @@ import org.hzeng.model.Coordinate;
 import org.hzeng.model.RandomCoordinate;
 import org.hzeng.model.UniformSpeedRoute;
 import org.hzeng.util.Util;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -112,17 +110,17 @@ public class BaltimoreCoordinateController {
 //        return new ResponseEntity(emitter, HttpStatus.OK);
 //    }
 
-    @GetMapping("/sendMessage")
-    public ResponseEntity<SseEmitter> sendMessage() throws IOException, TimeoutException, InterruptedException{
-
-        ExecutorService service = Executors.newSingleThreadExecutor();
-        final SseEmitter emitter = new SseEmitter();
-        String[] routingKeys = {"random"};
+//    @GetMapping("/sendMessage")
+//    public ResponseEntity<SseEmitter> sendMessage() throws IOException, TimeoutException, InterruptedException{
 //
-        Runnable runnable = util.generateTask(emitter, routingKeys);
-
-        service.submit(runnable);
-        return new ResponseEntity(emitter, HttpStatus.OK);
-    }
+//        ExecutorService service = Executors.newSingleThreadExecutor();
+//        final SseEmitter emitter = new SseEmitter();
+//        String[] routingKeys = {"random"};
+////
+//        Runnable runnable = util.generateTask(emitter, routingKeys);
+//
+//        service.submit(runnable);
+//        return new ResponseEntity(emitter, HttpStatus.OK);
+//    }
 }
 

@@ -1,9 +1,13 @@
 server:
   port: 8081
 spring:
-  freemarker:
-    cache: false
   rabbitmq:
     host: localhost
+  freemarker:
+    cache: false
+#  devtools:
+#    restart:
+#      exclude: static/**,public/**,templates/**
 bustracker:
   exchange-name: BUS_LOCATION
+  location-update-interval: 1000

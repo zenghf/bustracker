@@ -29,7 +29,7 @@ public class UniformSpeedRoute implements Route {
     double timeOfRoundJourney;
 
     public UniformSpeedRoute(String id, String routeFileName, double speed, double timeZero) {
-
+        this.id = id;
         this.routeFileName = routeFileName;
         this.speed = speed;
         this.timeZero = timeZero;
