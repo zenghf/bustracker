@@ -1,22 +1,13 @@
 package org.hzeng.controller;
 
 
-import com.rabbitmq.client.*;
 import org.hzeng.model.Coordinate;
 import org.hzeng.model.RandomCoordinate;
 import org.hzeng.model.UniformSpeedRoute;
 import org.hzeng.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
-
-import java.io.IOException;
-import java.time.Period;
-import java.util.Date;
-import java.util.concurrent.*;
 
 
 /**
@@ -43,7 +34,7 @@ public class BaltimoreCoordinateController {
 
     @Autowired
     public void setUniformSpeedRoute(){
-        uniformSpeedRoute = new UniformSpeedRoute("uniformHomeToBWI","src/main/resources/static/route/homeToBWI.gpx", 0.3, 0.0);
+        uniformSpeedRoute = new UniformSpeedRoute("uniformHomeToBWI", "route/homeToBWI.gpx", 0.3, 0.0);
     }
 
 

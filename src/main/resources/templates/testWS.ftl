@@ -34,13 +34,20 @@
     <div class="w3-bar-block w3-left" >
 
         <form id="route-selection-panel">
-            <span class="route-item">
-                <input type="checkbox" name="vehicle" value="random" class="" > random
-            </span>
+            <#--<span class="route-item">-->
+                <#--<input type="checkbox" name="vehicle" value="random" class="" > random-->
+            <#--</span>-->
 
-            <span class="w3-bar-item w3-button w3-text-grey">
-                <input type="checkbox" name="vehicle" value="uniform-speed" class="route-selection" > uniform-speed
-            </span>
+            <#--<span class="w3-bar-item w3-button w3-text-grey">-->
+                <#--<input type="checkbox" name="vehicle" value="uniform-speed" class="route-selection" > uniform-speed-->
+            <#--</span>-->
+
+            <#list defaultRouteNames as name>
+                <span class="route-item">
+                    <input type="checkbox" name="vehicle" value=${name} checked > ${name}
+                </span>
+            </#list>
+
         </form>
     </div>
 </nav>
@@ -112,15 +119,12 @@
             zoom: 13,
             center: {lat: 39.315770, lng: -76.610532}
         });
-        var id = "random";
-        markers[id] = createMarker(map, id);
-        setTimeout(function(){
-            var data = {
-                id: id,
-                coordinate: {lat: 39.3195770, lng: -76.607532}
-            };
-            updateMarker(data);
-        }, 3000);
+//        var id = "1";
+//        markers[id] = createMarker(map, id);
+        <#list defaultRouteNames as id>
+            markers["${id}"] = createMarker(map, "${id}");
+        </#list>
+
     }
 
 
@@ -133,11 +137,12 @@
         // var ws = Stomp.over(socket);
         var count = 1;
         ws.onmessage = function (event) {
+            console.log("onmessage");
             if (event){
-                console.log('received message : ' + event.data);
+                var message = JSON.parse(event.data);
+                updateMarker(message);
                 if (count < 50) {
-                    var message = JSON.parse(event.data);
-                    updateMarker(message);
+                    console.log('received message : ' + event.data);
                     count++;
                 }
             }

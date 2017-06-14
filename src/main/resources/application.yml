@@ -11,3 +11,22 @@ spring:
 bustracker:
   exchange-name: BUS_LOCATION
   location-update-interval: 1000
+  route-settings:
+    -
+      id: 1
+      route-file-name: route/1.gpx
+      speed: 0.2
+      time-zero: 0
+      time-stop-at-station: 10
+      min-distance-between-station: 0.5
+      enabled: true
+    -
+      id: 2
+      route-file-name: route/2.gpx
+      speed: 0.2
+      time-zero: 0
+      time-stop-at-station: 10
+      min-distance-between-station: 0.5
+      enabled: true
+
+

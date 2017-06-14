@@ -13,6 +13,10 @@ function createMarker(map, id, icon, label){
         };
     }
     if (label === undefined) {
+        if (typeof id !== "string"){
+            label = id;
+            return;
+        }
         label = id[0].toUpperCase();
         for (var i = 1; i < id.length; i++){
             if (!isNaN(id[i]))

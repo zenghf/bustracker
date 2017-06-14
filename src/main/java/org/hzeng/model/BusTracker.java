@@ -21,9 +21,8 @@ public class BusTracker {
     public BusTracker(Channel channel) {
         this.channel = channel;
         routeNames = new HashSet<>();
-        String[] rs = {"random"};
-        for (String route : rs)
-            routeNames.add(route);
+        // TODO change later
+        routeNames.add("1");
     }
 
     public Channel getChannel() {
@@ -40,5 +39,9 @@ public class BusTracker {
 
     public void setConsumerTag(String consumerTag) {
         this.consumerTag = consumerTag;
+    }
+
+    public void addRouteName(String name){
+        routeNames.add(name);
     }
 }

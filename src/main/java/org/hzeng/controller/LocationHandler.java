@@ -1,9 +1,13 @@
 package org.hzeng.controller;
 
 import com.rabbitmq.client.*;
+import org.hzeng.config.BusTrackerSettings;
 import org.hzeng.model.BusTracker;
+import org.hzeng.model.Route;
+import org.hzeng.model.SimuBusRoute;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
@@ -25,6 +29,12 @@ public class LocationHandler extends TextWebSocketHandler {
     @Value("${bustracker.exchange-name}")
     String EXCHANGE_NAME; // = "BUS_LOCATION";
 
+    @Value("${spring.rabbitmq.host}")
+    String RABBITMQ_HOST;
+
+    @Autowired
+    BusTrackerSettings settings;
+
     Map<WebSocketSession, BusTracker> sessionMap;
 
     // Set<String> routes;
@@ -33,37 +43,20 @@ public class LocationHandler extends TextWebSocketHandler {
         sessionMap = new HashMap<>();
     }
 
-//    public void sendGreeting(){
-//        if (session != null && session.isOpen()){
-//            try{
-//                String message = new Date().toString();
-//                System.out.println("Now sending : " + message);
-//                JSONObject obj = new JSONObject();
-//                obj.put("from", "server");
-//                obj.put("topic", "topic");
-//                String msg = "Hello: ";
-//                for (String route : routes)
-//                    msg += route + " ";
-//                obj.put("message", msg);
-//                obj.put("time", message);
-//                session.sendMessage(new TextMessage(obj.toJSONString()));
-//            }
-//            catch (Exception e){
-//                e.printStackTrace();
-//            }
-//        }
-//    }
-
     @Override
     public void afterConnectionEstablished(WebSocketSession session) {
         System.out.println("Connection established");
         ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("localhost");
+        factory.setHost(RABBITMQ_HOST);
 
         try{
             Connection connection = factory.newConnection();
             Channel channel = connection.createChannel();
             BusTracker busTracker = new BusTracker(channel);
+            for (BusTrackerSettings.RouteSetting r : settings.getRouteSettings()){
+                if (r.isEnabled())
+                    busTracker.addRouteName(r.getId());
+            }
             Set<String> routeNames = busTracker.getRouteNames();
 
             String queueName = channel.queueDeclare().getQueue();
@@ -96,7 +89,7 @@ public class LocationHandler extends TextWebSocketHandler {
                 @Override
                 public void run() {
                     try {
-                        Thread.sleep(10000);
+                        Thread.sleep(100000);
                         cleanup(session);
                     } catch (Exception e){
                         e.printStackTrace();
