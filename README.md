@@ -9,3 +9,6 @@ Haifeng Zeng (zenghaifeng@gmail.com)
 
 - go to [http://www.cgtk.co.uk/navigation/gpx](http://www.cgtk.co.uk/navigation/gpx) and edit the bus route using google map
 - export the route into garmin gpx file.
+
+
+`rabbitmqctl declare exchange BUS_LOCATION`

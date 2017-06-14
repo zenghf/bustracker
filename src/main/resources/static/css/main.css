@@ -1,5 +1,22 @@
-.space-bottom5 { margin-bottom: 5px; }
-.space-bottom10 { margin-bottom: 10px; }
-.space-bottom15 { margin-bottom: 15px; }
-.space-bottom20 { margin-bottom: 20px; }
-.space-bottom30 { margin-bottom: 30px; }
+body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+
+.route-item{
+    width:100%;display:block;padding:8px 16px;text-align:left;border:none;outline:none;white-space:normal;float:none;
+    color:#757575!important;
+}
+.route-item:hover{color:#000!important;background-color:#ccc!important}
+
+/* Always set the map height explicitly to define the size of the div
+ * element that contains the map. */
+#map {
+    height: 400px;
+    min-height: 400px;
+    width: 100%;
+    min-width: 400px;
+}
+/* Optional: Makes the sample page fill the window. */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
