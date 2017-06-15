@@ -14,17 +14,19 @@ function createMarker(map, id, icon, label){
     }
     if (label === undefined) {
         if (typeof id !== "string"){
-            label = id;
-            return;
+            label = id.toString();
         }
-        label = id[0].toUpperCase();
-        for (var i = 1; i < id.length; i++){
-            if (!isNaN(id[i]))
-                label += id[i];
+        else {
+            label = id[0].toUpperCase();
+            for (var i = 1; i < id.length; i++) {
+                if (!isNaN(id[i]))
+                    label += id[i];
+            }
         }
     }
     var marker = new google.maps.Marker({
-        position: positions[0],
+        // position: map.getCenter(),
+        position: undefined,
         map: map,
         icon: icon,
         label: {
@@ -42,13 +44,21 @@ function updateMarker(data) {
     var marker = markers[id];
     var coordinate = data["coordinate"];
     var prevPosition = marker.getPosition();
-    var dLat = coordinate['lat'] - prevPosition.lat();
-    var dLng = coordinate['lng'] - prevPosition.lng();
-    var dx = dLng * Math.cos(coordinate['lat'] * Math.PI / 180.0);
-    var dy = dLat;
-    var rotation = -Math.atan2(dy, dx) * 180 / Math.PI;
     var icon = marker.getIcon();
-    icon.rotation = rotation;
+    if (prevPosition !== undefined){
+        var dLat = coordinate['lat'] - prevPosition.lat();
+        var dLng = coordinate['lng'] - prevPosition.lng();
+        if (Math.abs(dLat) < 0.00001 && Math.abs(dLng) < 0.00001){
+            icon.fillColor = '#0000FF';
+        }
+        else {
+            var dx = dLng * Math.cos(coordinate['lat'] * Math.PI / 180.0);
+            var dy = dLat;
+            var rotation = -Math.atan2(dy, dx) * 180 / Math.PI;
+            icon.rotation = rotation;
+            icon.fillColor = '#FF0000';
+        }
+    }
     marker.setIcon(icon);
     var latlng = new google.maps.LatLng(coordinate['lat'], coordinate['lng']);
     marker.setPosition(latlng);

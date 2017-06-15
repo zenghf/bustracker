@@ -16,7 +16,7 @@ bustracker:
     -
       id: 1
       route-file-name: route/1.gpx
-      speed: 0.2
+      speed: 0.044
       time-zero: 0
       time-stop-at-station: 10
       min-distance-between-station: 0.5
@@ -24,7 +24,7 @@ bustracker:
     -
       id: 2
       route-file-name: route/2.gpx
-      speed: 0.2
+      speed: 0.039
       time-zero: 0
       time-stop-at-station: 10
       min-distance-between-station: 0.5

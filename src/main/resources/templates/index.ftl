@@ -89,7 +89,7 @@
     function initMap(){
         console.log("init map");
         var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 13,
+            zoom: 11,
             center: {lat: 39.315770, lng: -76.610532}
         });
 
