@@ -18,7 +18,7 @@ bustracker:
       route-file-name: route/1.gpx
       speed: 0.044
       time-zero: 0
-      time-stop-at-station: 10
+      time-stop-at-station: 7
       min-distance-between-station: 0.5
       enabled: true
     -
@@ -29,5 +29,51 @@ bustracker:
       time-stop-at-station: 10
       min-distance-between-station: 0.5
       enabled: true
-
-
+    -
+      id: 3
+      route-file-name: route/3.gpx
+      speed: 0.0239
+      time-zero: 0
+      time-stop-at-station: 5
+      min-distance-between-station: 0.5
+      enabled: true
+    -
+      id: 4
+      route-file-name: route/4.gpx
+      speed: 0.019
+      time-zero: 0
+      time-stop-at-station: 6
+      min-distance-between-station: 0.35
+      enabled: true
+    -
+      id: 5
+      route-file-name: route/5.gpx
+      speed: 0.0279
+      time-zero: 0
+      time-stop-at-station: 8
+      min-distance-between-station: 0.45
+      enabled: true
+    -
+      id: 6
+      route-file-name: route/6.gpx
+      speed: 0.055
+      time-zero: 0
+      time-stop-at-station: 4
+      min-distance-between-station: 1.0
+      enabled: true
+    -
+      id: 7
+      route-file-name: route/7.gpx
+      speed: 0.017
+      time-zero: 0
+      time-stop-at-station: 5
+      min-distance-between-station: 0.6
+      enabled: true
+    -
+      id: 8
+      route-file-name: route/8.gpx
+      speed: 0.023
+      time-zero: 0
+      time-stop-at-station: 6
+      min-distance-between-station: 0.5
+      enabled: true
