@@ -21,8 +21,6 @@ public class BusTracker {
     public BusTracker(Channel channel) {
         this.channel = channel;
         routeNames = new HashSet<>();
-        // TODO change later
-        routeNames.add("1");
     }
 
     public Channel getChannel() {

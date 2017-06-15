@@ -3,8 +3,6 @@ package org.hzeng.controller;
 import com.rabbitmq.client.*;
 import org.hzeng.config.BusTrackerSettings;
 import org.hzeng.model.BusTracker;
-import org.hzeng.model.Route;
-import org.hzeng.model.SimuBusRoute;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,13 +30,14 @@ public class LocationHandler extends TextWebSocketHandler {
     @Value("${spring.rabbitmq.host}")
     String RABBITMQ_HOST;
 
+    @Value("${bustracker.session-timeout ?: 300}")
+    Long TIME_OUT;
+
     @Autowired
     BusTrackerSettings settings;
 
     Map<WebSocketSession, BusTracker> sessionMap;
-
-    // Set<String> routes;
-
+    
     public LocationHandler(){
         sessionMap = new HashMap<>();
     }
@@ -69,7 +68,6 @@ public class LocationHandler extends TextWebSocketHandler {
                 public void handleDelivery(String consumerTag, Envelope envelope,
                                            AMQP.BasicProperties properties, byte[] body) throws IOException {
                     String message = new String(body, "UTF-8");
-                    //                BaltimoreCoordinateController.this.message = message;
                     try {
                         session.sendMessage(new TextMessage(message));
                     } catch (Exception e) {
@@ -89,8 +87,8 @@ public class LocationHandler extends TextWebSocketHandler {
                 @Override
                 public void run() {
                     try {
-                        Thread.sleep(100000);
-                        cleanup(session);
+                        Thread.sleep(TIME_OUT * 1000);
+                        closeSession(session);
                     } catch (Exception e){
                         e.printStackTrace();
                     }
@@ -104,8 +102,8 @@ public class LocationHandler extends TextWebSocketHandler {
         }
     }
 
-    private void cleanup(WebSocketSession session){
-        System.out.println("--> cleanup");
+    private void closeSession(WebSocketSession session){
+        // System.out.println("--> cleanup");
         if (!sessionMap.containsKey(session))
             return;
         BusTracker busTracker = sessionMap.get(session);
@@ -136,13 +134,13 @@ public class LocationHandler extends TextWebSocketHandler {
                 e.printStackTrace();
             }
         }
-        System.out.println("<-- cleanup");
+        // System.out.println("<-- cleanup");
     }
 
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message)
             throws Exception {
-        System.out.println("--> handleTextMessage");
+        // System.out.println("--> handleTextMessage");
         JSONParser parser = new JSONParser();
         JSONObject obj = (JSONObject) parser.parse(message.getPayload());
 //        String a = (String) obj.get("checked");
@@ -153,12 +151,12 @@ public class LocationHandler extends TextWebSocketHandler {
             routeNames.add(route);
         else
             routeNames.remove(route);
-        System.out.println("<-- handleTextMessage");
+        // System.out.println("<-- handleTextMessage");
     }
 
     @Override
     public void afterConnectionClosed(WebSocketSession session,
                                          CloseStatus status){
-        cleanup(session);
+        closeSession(session);
     }
 }

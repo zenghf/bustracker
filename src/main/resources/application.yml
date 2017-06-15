@@ -11,6 +11,7 @@ spring:
 bustracker:
   exchange-name: BUS_LOCATION
   location-update-interval: 1000
+  session-timeout: 300
   route-settings:
     -
       id: 1

@@ -78,40 +78,13 @@
     <p class="w3-medium">Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
 </footer>
 
-<#--<div id="main-content" class="container">-->
-<#--<div class="row">-->
-<#--<div class="col-md-12 space-bottom10">-->
-<#--<form class="form-inline">-->
-<#--<div class="form-group">-->
-<#--<input type="checkbox" name="vehicle" value="random" class="route-selection" > random-->
-<#--&lt;#&ndash;<input type="checkbox" name="vehicle" value="Car" class="route-selection" checked> Car&ndash;&gt;-->
-<#--text-->
-<#--</div>-->
-<#--</form>-->
-<#--</div>-->
-
-<#--</div>-->
-
-<#--</div>-->
-
-
-
-
-
 <script async="true" defer="true"
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCoRf6Z8U9X6jIhpZV_K6_u5IHVg637qSA&callback=initMap">
 </script>
 
 <script>
 
-
-    var image = '/img/travel_bus.png';
-    var positions = [{lat: 39.315770, lng: -76.610532}, {lat: 39.325770, lng: -76.610532}, {lat: 39.335770, lng: -76.610532}];
     var markers = {};
-
-    function showMessage(mesg) {
-        $('#messages').append(mesg);
-    }
 
     function initMap(){
         console.log("init map");
@@ -119,16 +92,12 @@
             zoom: 13,
             center: {lat: 39.315770, lng: -76.610532}
         });
-//        var id = "1";
-//        markers[id] = createMarker(map, id);
+
         <#list defaultRouteNames as id>
             markers["${id}"] = createMarker(map, "${id}");
         </#list>
 
     }
-
-
-
 
     $(function() {
         'use strict';
@@ -160,9 +129,6 @@
         });
 
     });
-</script>
-
-<script>
 
     // Script to open and close sidebar
     function w3_open() {

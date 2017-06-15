@@ -1,7 +1,5 @@
 package org.hzeng.model;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.w3c.dom.Document;
@@ -11,10 +9,8 @@ import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public abstract class AbstractRoute implements Route{
@@ -48,10 +44,7 @@ public abstract class AbstractRoute implements Route{
         route = new ArrayList<>();
 
         try {
-//            ClassPathA
-//            ApplicationContext ctx = new ClassPathXmlApplicationContext();
             Resource routeResource =  new ClassPathResource(routeFileName);
-//            File file = resource.getInputStream();
             InputStream xmlInputStrem = routeResource.getInputStream();
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -67,15 +60,12 @@ public abstract class AbstractRoute implements Route{
                 Node node = coordList.item(i);
                 if (node.getNodeType() == Node.ELEMENT_NODE) {
                     Element element = (Element) node;
-                    // System.out.print("\nlat :" + element.getAttribute("lat"));
-                    // System.out.print("\nlon :" + element.getAttribute("lon"));
                     List<Double> coord = new ArrayList<>();
                     coord.add(Double.valueOf(element.getAttribute("lat")));
                     coord.add(Double.valueOf(element.getAttribute("lon")));
                     route.add(coord);
                 }
             }
-            // System.out.println(result);
 
         }
         catch (Exception e) {

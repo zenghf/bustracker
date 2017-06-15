@@ -27,20 +27,9 @@ public class FrontEndController {
         }
     }
 
-    @GetMapping("/view")
-    public String viewBus(){
-
-        return "viewBus_fun";
-    }
-
-    @GetMapping("/message")
-    public String message(){
-        return "testServerSendMessage";
-    }
-
-    @GetMapping("/testWS")
+    @GetMapping({"/", "/index"})
     public String testWS(Model model){
         model.addAttribute("defaultRouteNames", defaultRouteNames);
-        return "testWS";
+        return "index";
     }
 }

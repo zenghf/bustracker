@@ -1,7 +1,5 @@
 package org.hzeng.model;
 
-import org.hzeng.model.Coordinate;
-
 import java.util.Random;
 
 /**
