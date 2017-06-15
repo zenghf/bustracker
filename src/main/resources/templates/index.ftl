@@ -44,7 +44,7 @@
 
             <#list defaultRouteNames as name>
                 <span class="route-item">
-                    <input type="checkbox" name="vehicle" value=${name} checked > ${name}
+                    <input type="checkbox" name="vehicle" value=${name} class="route-selection" checked > ${name}
                 </span>
             </#list>
 
@@ -85,10 +85,10 @@
 <script>
 
     var markers = {};
-
+    var map = null;
     function initMap(){
         console.log("init map");
-        var map = new google.maps.Map(document.getElementById('map'), {
+        map = new google.maps.Map(document.getElementById('map'), {
             zoom: 11,
             center: {lat: 39.315770, lng: -76.610532}
         });
@@ -125,7 +125,8 @@
 
         $('.route-selection').bind("click", function() {
             console.log("checkbox clicked");
-            sendRouteName(this);
+            sendRouteName(ws, this);
+            toggleBusDisplay(this);
         });
 
     });

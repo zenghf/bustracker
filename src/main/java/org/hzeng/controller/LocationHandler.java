@@ -51,14 +51,13 @@ public class LocationHandler extends TextWebSocketHandler {
         try{
             Connection connection = factory.newConnection();
             Channel channel = connection.createChannel();
-            BusTracker busTracker = new BusTracker(channel);
+            String queueName = channel.queueDeclare().getQueue();
+            BusTracker busTracker = new BusTracker(channel, queueName);
             for (BusTrackerSettings.RouteSetting r : settings.getRouteSettings()){
                 if (r.isEnabled())
                     busTracker.addRouteName(r.getId());
             }
             Set<String> routeNames = busTracker.getRouteNames();
-
-            String queueName = channel.queueDeclare().getQueue();
 
             for (String routingKey : routeNames) {
                 channel.queueBind(queueName, EXCHANGE_NAME, routingKey);
@@ -140,18 +139,25 @@ public class LocationHandler extends TextWebSocketHandler {
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message)
             throws Exception {
-        // System.out.println("--> handleTextMessage");
+        System.out.println("--> handleTextMessage");
+        BusTracker busTracker = sessionMap.get(session);
+        String queueName = busTracker.getQueueName();
+        Channel channel = busTracker.getChannel();
         JSONParser parser = new JSONParser();
         JSONObject obj = (JSONObject) parser.parse(message.getPayload());
 //        String a = (String) obj.get("checked");
         boolean checked = (boolean) obj.get("checked");
-        String route = (String) obj.get("route");
+        String routeName = (String) obj.get("route");
         Set<String> routeNames = sessionMap.get(session).getRouteNames();
-        if (checked)
-            routeNames.add(route);
-        else
-            routeNames.remove(route);
-        // System.out.println("<-- handleTextMessage");
+        if (checked) {
+            routeNames.add(routeName);
+            channel.queueBind(queueName, EXCHANGE_NAME, routeName);
+        }
+        else {
+            routeNames.remove(routeName);
+            channel.queueUnbind(queueName, EXCHANGE_NAME, routeName);
+        }
+        System.out.println("<-- handleTextMessage");
     }
 
     @Override

@@ -75,6 +75,15 @@ function sendRouteName(ws, checkbox) {
     ws.send(JSON.stringify({'route': checkbox.value, 'checked': checkbox.checked}));
 }
 
+function toggleBusDisplay(checkbox) {
+    var id = checkbox.value;
+    var marker = markers[id];
+    if (checkbox.checked)
+        marker.setMap(map);
+    else
+        marker.setMap();
+}
+
 function deleteMarkers(markers){
     for (var id in markers)
         markers[id].setMap(null);

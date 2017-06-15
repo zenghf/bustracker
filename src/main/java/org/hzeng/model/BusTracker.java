@@ -16,10 +16,13 @@ public class BusTracker {
 
     String consumerTag;
 
+    String queueName;
+
     Set<String> routeNames;
 
-    public BusTracker(Channel channel) {
+    public BusTracker(Channel channel, String queueName) {
         this.channel = channel;
+        this.queueName = queueName;
         routeNames = new HashSet<>();
     }
 
@@ -37,6 +40,10 @@ public class BusTracker {
 
     public void setConsumerTag(String consumerTag) {
         this.consumerTag = consumerTag;
+    }
+
+    public String getQueueName() {
+        return queueName;
     }
 
     public void addRouteName(String name){
