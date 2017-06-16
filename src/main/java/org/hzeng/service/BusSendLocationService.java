@@ -76,7 +76,7 @@ public class BusSendLocationService {
                 jsonObject.put("coordinate", route.getCoordinate().toJSONObject());
                 String message = jsonObject.toJSONString();
                 channel.basicPublish(EXCHANGE_NAME, routingKey, null, message.getBytes());
-                System.out.println(" [x] Sent '" + routingKey + "':'" + message + "'");
+                // System.out.println(" [x] Sent '" + routingKey + "':'" + message + "'");
             }
             catch (IOException e){
                 e.printStackTrace();

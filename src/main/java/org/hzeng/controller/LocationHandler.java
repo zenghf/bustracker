@@ -44,7 +44,7 @@ public class LocationHandler extends TextWebSocketHandler {
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) {
-        System.out.println("Connection established");
+        // System.out.println("Connection established");
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost(RABBITMQ_HOST);
 
@@ -74,7 +74,7 @@ public class LocationHandler extends TextWebSocketHandler {
                         session.close(CloseStatus.SERVER_ERROR);
                         return;
                     }
-                    System.out.println(" [-] Received '" + envelope.getRoutingKey() + "':'" + message + "'");
+                    // System.out.println(" [-] Received '" + envelope.getRoutingKey() + "':'" + message + "'");
                 }
             };
 
@@ -124,10 +124,9 @@ public class LocationHandler extends TextWebSocketHandler {
         if (session.isOpen()) {
             try {
                 // session.sendMessage(new TextMessage("session closed"));
-                System.out.println("session closed");
-                // TODO check why after session.close(), the program goes to the beginning of this function
+                // System.out.println("session closed");
                 session.close();
-                System.out.println("after close");
+                // System.out.println("after close");
             }
             catch (Exception e){
                 e.printStackTrace();
@@ -139,7 +138,7 @@ public class LocationHandler extends TextWebSocketHandler {
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message)
             throws Exception {
-        System.out.println("--> handleTextMessage");
+        // System.out.println("--> handleTextMessage");
         BusTracker busTracker = sessionMap.get(session);
         String queueName = busTracker.getQueueName();
         Channel channel = busTracker.getChannel();
@@ -157,7 +156,7 @@ public class LocationHandler extends TextWebSocketHandler {
             routeNames.remove(routeName);
             channel.queueUnbind(queueName, EXCHANGE_NAME, routeName);
         }
-        System.out.println("<-- handleTextMessage");
+        // System.out.println("<-- handleTextMessage");
     }
 
     @Override
