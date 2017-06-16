@@ -102,7 +102,7 @@
 
     $(function() {
         'use strict';
-        var ws = new WebSocket("ws://localhost:8081/route");
+        var ws = new WebSocket("ws://${websocketServer}/route");
 
         // var ws = Stomp.over(socket);
         var count = 1;
