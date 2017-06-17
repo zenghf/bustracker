@@ -4,7 +4,7 @@ This app uses java spring cloud microservices achitecture and RESTful API.
 Haifeng Zeng (zenghaifeng@gmail.com)
 
 ### Preview
-()
+![Home](https://zenghf.github.io/bustracker/img/bustracker.png)
 
 #### Usage
 
